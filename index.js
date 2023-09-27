@@ -1,20 +1,54 @@
-const cours = {
-    titreCours : "",
-    professeur : "",
-    salle : parseInt(),
-};
 
-const professeurs = {
-    nom : "",
-    prenom : "",
-    email : "",
-    numeroTel : parseInt()
-};
+import  prompt  from "prompt-sync";
 
-const etudiants = {
-    nom : "",
-    prenom : "",
-    numeroCarte : parseInt(),
-    numeroTel : parseInt()
-};
 
+
+
+// L'entité supérieure qui contient les entités professeurs, étudiants et cours.
+let maBaseDeDonnees = {};
+
+    // Initialisation des entités de maBaseDeDonnees.
+    maBaseDeDonnees.professeurs = [];
+    maBaseDeDonnees.etudiants = [];
+    maBaseDeDonnees.cours = [];
+
+
+// Déclaration des entités.
+let professeurs = maBaseDeDonnees.professeurs;
+let etudiants = maBaseDeDonnees.etudiants;
+let cours = maBaseDeDonnees.cours;
+
+    const profGeo = {
+        nom: "Diop",
+        prenom: "Cheikh",
+        mail: "cheikhdiop0812@gmail.com",
+        tel: "0022177000000000",
+        coursDispense: "Géographie",
+    };
+
+    professeurs.push(profGeo);
+
+    let coursGeo = {
+        nom: "Géographie",
+        duree: "2 mois",
+        description: "Ceci est un cours qui permet aux étudiants d'avoir les bases en géographie humaine",
+        enseignant: profGeo,
+        apprenants: []
+    };
+    cours.push(coursGeo);
+
+// L'inscription des etudiants à un cours.
+
+let inscription = {
+    prenom: prompt()("Entrez votre prenom SVP."),
+    nom: prompt()("Entrez votre nom SVP."),
+    mail: prompt()("Entrez votre adresse mail SVP."),
+    cours: prompt()("Entrez le nom du cours à suivre SVP.")
+};
+    coursGeo.apprenants.push(inscription);
+
+// Récupération des inscrits à un cours pour le stocker "au etudiants".
+let etudiantDejaInscrit = coursGeo.apprenants;
+    etudiants.push(etudiantDejaInscrit);
+
+console.log(JSON.stringify(maBaseDeDonnees));
