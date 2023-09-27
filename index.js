@@ -45,10 +45,10 @@ let inscription = {
     mail: prompt()("Entrez votre adresse mail SVP."),
     cours: prompt()("Entrez le nom du cours à suivre SVP.")
 };
-    coursGeo.apprenants.push(inscription);
+    coursGeo.apprenants.push(inscription.prenom + inscription.nom);
 
-// Récupération des inscrits à un cours pour le stocker "au etudiants".
-let etudiantDejaInscrit = coursGeo.apprenants;
-    etudiants.push(etudiantDejaInscrit);
+    etudiants.push(inscription);
 
+    console.log("Un étudiant de l'établissement ",etudiants);
+    console.log("Voici les étudiants inscrit au cours Géographie ",coursGeo.apprenants);
 console.log(JSON.stringify(maBaseDeDonnees));
