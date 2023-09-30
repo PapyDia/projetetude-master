@@ -49,10 +49,12 @@ let inscription = {
     cours: prompt()("Entrez le nom du cours à suivre SVP."),
     id: uuidv4()
 };
-    coursGeo.apprenants.push(inscription.prenom + inscription.nom);
+    coursGeo.apprenants.push(inscription.id);
 
     etudiants.push(inscription);
 
     console.log("Un étudiant de l'établissement ",etudiants);
     console.log("Voici les étudiants inscrit au cours Géographie ",coursGeo.apprenants);
-console.log(JSON.stringify(maBaseDeDonnees));
+    console.log(JSON.stringify(maBaseDeDonnees));
+
+
