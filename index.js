@@ -1,117 +1,71 @@
-import { readFileSync, writeFileSync} from "node:fs";
 import prompt from "prompt-sync";
-// Lire le fichier database.json
-// let data = readFileSync("database.json");
-//Deserialiser l'data
-// const objetData = JSON.parse(data);
-const objetData = new Object();
-objetData.users = [];
+import { v4 as uuidv4 } from "uuid";
+import { readFileSync, writeFileSync } from "node:fs";
 //variable to store filename
 const fileName = "database.json";
 
-//afficher les donnees au terminal
-console.log(
-  "Voici les donnees avant modifications",
-  JSON.stringify(objetData, null, 4)
-);
 ///////////////////////////////////////////////////
 // Program logic
 //////////////////////////////////////////////////
 
-//extraire les donnees ( tableau users) dans l'objet
-const users = objetData.users;
-
-// demander de taper l'email de l'utilisateur
-// dont on souhaite modifier les donnees
-
-let email = prompt()("taper l'email: ");
-//demande de tapper le nouveau prenom
-let nouvoPrenom = prompt()("taper le nouveau prenom: ");
 //1) get data from database
-let data = readData(fileName);
+const DB = readData(fileName);
 
-// trouver l'utilisateur a modifier
-const userOld = users.find((user) => { 
 // 2) create and course data
-data.cours.push({
+DB.cours.push({
+  id: uuidv4(),
   titre: "chimie",
   description: "Ce cours est une introduction de la chimie generale",
   prof: "",
   inscrits: [],
 });
-
 // 3) create and prof data
-let prof = {
+const prof = {
+  id: uuidv4(),
   nom: "Bakary",
   prenom: "Konate",
   email: "prof1@gmail.com",
   cours: "chimie",
 };
-data.profs.push(prof);
-data.cours.prof = prof.nom;
+DB.profs.push(prof);
+DB.cours.prof = prof.nom;
 
-  user.email === email
-
-});
-
-
-// if(!userOld) {
-//   console.log("l'utilisateur n'existe pas");
-//   return;
-// }
-//trouver l'index de l'utilisateur
-// const index = users.findIndex((user) => user.email === email);
-// console.log("index", index);
 // 4) create and add student data
-createStudent(data);
+createStudent(DB);
 
-users.push({
-  nom: "John",
-  prenom: nouvoPrenom,
-  email: email,
-});
-//modifier les donnees a l'index
-// users[index] = {
-//   nom: userOld.nom,
-//   prenom: nouvoPrenom,
-//   email: userOld.email,
-// };
 // 5) save data to database
-storeData(fileName, data);
+storeData(fileName, DB);
 //afficher les donnees au terminal
-console.log("Afficher data: ", JSON.stringify(data, null, 4));
+console.log("Afficher data: ", JSON.stringify(DB, null, 4));
 
-// Serialiser l'objetData apres modification
-let jsonData = JSON.stringify(objetData);
 //////////////////////////////////////////////////////////
 //////Functions used //////////////////////////////////////
 /////////////////////////////////////////////////////////
 // 1) function to register student
 function createStudent(data) {
   try {
-    const nouvoEmail = promptEmail();
+    const nouvoEmail = promptEmail(data);
     //demander de tapper le nouveau prenom et nom
     const nouvoPrenom = prompt()("taper le prenom: ");
     const nouvoNom = prompt()("taper le nom: ");
     const choixCourse = prompt()("taper le choix de cours: ");
     const etudiant = {
+      id: uuidv4(),
       nom: nouvoNom,
       prenom: nouvoPrenom,
       email: nouvoEmail,
-      myCourse: [],
+      courses: [],
     };
-    //add student information
-    // data after student creation
-    addStudent(data, etudiant);
+    //add student information after student creation
+    addStudent(data, etudiant, choixCourse);
   } catch (err) {
     console.log(err.message);
   }
 }
 
-//Sauver les donnees modifiées
 // 2) helper function to prompt student email.
-//  It check if student email exists. Only3 tries is allowed.
-function promptEmail() {
+//  It checks if student email exists. Only 3 tries is allowed.
+function promptEmail(data) {
   let nouvoEmail = null;
   let count = 0;
   do {
@@ -120,14 +74,11 @@ function promptEmail() {
     // demander de taper l'email de l'etudiant
     nouvoEmail = prompt()("taper l'email: ");
     console.log("trial count = ", count);
-  } while (findStudentByEmail(data, nouvoEmail));
+  } while (data.etudiants.find((user) => user.email === nouvoEmail)); //only false if email not found
+  // we need false to break the loop
   return nouvoEmail;
 }
 
-  writeFileSync("database1.json", jsonData, { flag: 'w' }, "utf-8", (err) => {
-    if (err) throw err;
-    console.log("database modifiée");
-  });
 // 3) helper function to check if file exists
 //returns true if file exists and false if not
 function fileExists(filename) {
@@ -140,14 +91,14 @@ function fileExists(filename) {
 }
 // 4) function to create new database
 function initDatabase(filename) {
-  let data = {};
-  data.cours = [];
-  data.profs = [];
-  data.etudiants = [];
+  let collection = {};
+  collection.cours = [];
+  collection.profs = [];
+  collection.etudiants = [];
 
   //write data to new database(this should be empty)
-  storeData(filename, data);
-  return data;
+  storeData(filename, collection);
+  return collection;
 }
 // 5) helper function to read database file
 function loadDatabase(filename) {
@@ -159,10 +110,6 @@ function loadDatabase(filename) {
   return jsonData;
 }
 
-//lire les donnees apres modification
-    data = readFileSync("database1.json");
-//Serialiser les donnees
-jsonData = JSON.parse(data);
 // 6) function to read data from database
 //database file does not exist, create it
 function readData(filename) {
@@ -192,11 +139,86 @@ function storeData(filename, data) {
   });
 }
 // 8) function add to studens list in memory
-function addStudent(data, etudiant) {
+function addStudent(data, etudiant, titre) {
   const cours = data.cours;
-  const choix = cours.find((c) => c.titre === "chimie");
-  choix.inscrits.push(etudiant.email);
-  data.etudiants.push(etudiant);
+  const choix = cours.find((c) => c.titre === titre);
+
+  if (choix) {
+    etudiant.courses.push(titre);
+    choix.inscrits.push(etudiant.email);
+    data.etudiants.push(etudiant);
+  } else {
+    console.log("Error adding student");
+  }
+}
+// ajouter un coursa la list des cours d'un etudiant
+// cette fonction pas utilisee dans mon code 
+function addCours(data, etudiant, titre) {
+  const cours = data.cours;
+  const choix = cours.find((c) => c.titre === titre);
+  if (
+    choix &&
+    etudiant.courses.length <= 4 &&
+    !etudiant.courses.includes(titre)
+  ) {
+    etudiant.courses.push(choix.titre);
+    choix.inscrits.push(etudiant.email);
+    data.etudiants.push(etudiant);
+  }
+}
+
+// 9) helper function to check if a student is already in the database
+// la fonction returne true si etudiant existe deja, sinon returne false
+// only false if email not found
+function findStudentByEmail(data, email) {
+  // return student or undefined
+  const existingStudent = data.etudiants.find((user) => user.email === email);
+  if (existingStudent) return true;
+  else return false; //only false if email not found
+}
+
+// 10) fonction d'ajouter un prof
+function addProf(DB){
+  try{
+    const email = prompt()("Entrez votre adresse mail: ");
+    const nom = prompt()("Entrez votre nom: ");
+    const prenom = prompt()("Entrez votre prénom: ");
+    const matiere = prompt()("Entrez votre matière à enseigner: ");
+  }catch(error){
+    console.log(error.message);
+  }
+
+};
+// 11) Fonction qui vériefie l'existence de l'email entré par le nouveau professeur
+function verifieEmailProf(DB){
+  const mail = prompt()('Entrer votre adresse mail Monsieur: ');
+  const profs = DB.profs;
+  const trouver = profs.find((p) => p.email === mail);
+
+  if(trouver){
+    console.log('Email existé !');
+    promptEmailInsist(DB);
+  }else{
+    console.log("C'est un nouveau email !");
+    addProf(DB);
+  };
+  
 };
 
-// 9) function pour ajouter un prof
+// 12) Fonction qui exige à l'utilisateur de taper un email différent
+function promptEmailInsist(DB) {
+  let mail = null;
+  let count = 0;
+    do {
+      if (count++ >= 3)
+      throw Error("Vous avez fait plus de 3 tentatives, réessayer ultérieurement");
+  // demander de taper l'email du nouveau professeur
+      mail = prompt()("Retaper votre email: ");
+      console.log("Tentative = ", count);
+} while (DB.profs.find((user) => user.email === mail));
+
+        return mail;
+};
+
+
+verifieEmailProf(DB);
