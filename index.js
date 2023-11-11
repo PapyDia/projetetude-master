@@ -180,13 +180,14 @@ function findStudentByEmail(data, email) {
 // 10) fonction d'ajouter un prof
 function addProf(DB){
   try{
-    const email = prompt()("Entrez votre adresse mail: ");
+    verifieEmailProf(DB);
+
     const nom = prompt()("Entrez votre nom: ");
     const prenom = prompt()("Entrez votre prénom: ");
     const matiere = prompt()("Entrez votre matière à enseigner: ");
   }catch(error){
     console.log(error.message);
-  }
+  };
 
 };
 // 11) Fonction qui vériefie l'existence de l'email entré par le nouveau professeur
@@ -200,7 +201,6 @@ function verifieEmailProf(DB){
     promptEmailInsist(DB);
   }else{
     console.log("C'est un nouveau email !");
-    addProf(DB);
   };
   
 };
@@ -220,5 +220,4 @@ function promptEmailInsist(DB) {
         return mail;
 };
 
-
-verifieEmailProf(DB);
+addProf(DB);
