@@ -11,27 +11,34 @@ const fileName = "database.json";
 //1) get data from database
 const DB = readData(fileName);
 
-// 2) create and course data
-DB.cours.push({
-  id: uuidv4(),
-  titre: "chimie",
-  description: "Ce cours est une introduction de la chimie generale",
-  prof: "",
-  inscrits: [],
-});
-// 3) create and prof data
-const prof = {
-  id: uuidv4(),
-  nom: "Bakary",
-  prenom: "Konate",
-  email: "prof1@gmail.com",
-  cours: "chimie",
-};
+
+// 2) create prof instance
+const prof = createProf();
 DB.profs.push(prof);
-DB.cours.prof = prof.nom;
+
+function createProf(){
+  try{
+    const mail = verifyExistingProf(DB);
+    
+    const prenom = prompt()("Entrez votre prénom Monsieur: ");
+    const nom = prompt()("Entrez votre nom Monsieur: ");
+
+    return {
+      prenom : prenom,
+      nom : nom,
+      email : mail
+    };
+
+  }catch(error){
+    console.log(error.message);
+  };
+
+};
+
 
 // 4) create and add student data
-createStudent(DB);
+const student = createStudent(DB);
+DB.etudiants.push(student);
 
 // 5) save data to database
 storeData(fileName, DB);
@@ -44,10 +51,10 @@ console.log("Afficher data: ", JSON.stringify(DB, null, 4));
 // 1) function to register student
 function createStudent(data) {
   try {
-    const nouvoEmail = promptEmail(data);
+    const nouvoEmail = promptEmailStudent(data);
     //demander de tapper le nouveau prenom et nom
-    const nouvoPrenom = prompt()("taper le prenom: ");
-    const nouvoNom = prompt()("taper le nom: ");
+    const nouvoPrenom = prompt()("Entrez votre prénom: ");
+    const nouvoNom = prompt()("Votre nom: ");
     const choixCourse = prompt()("taper le choix de cours: ");
     const etudiant = {
       id: uuidv4(),
@@ -56,28 +63,47 @@ function createStudent(data) {
       email: nouvoEmail,
       courses: [],
     };
+    etudiant.courses.push(choixCourse);
+
     //add student information after student creation
     addStudent(data, etudiant, choixCourse);
+
+    return etudiant;
   } catch (err) {
     console.log(err.message);
   }
 }
 
-// 2) helper function to prompt student email.
+// 2.1) helper function to prompt student email.
 //  It checks if student email exists. Only 3 tries is allowed.
-function promptEmail(data) {
+function promptEmailStudent(data) {
   let nouvoEmail = null;
   let count = 0;
   do {
     if (count++ >= 3)
-      throw Error("You have exceeded 3 trials, please try again");
+      throw Error("Vous avez essayé à trois reprises, réesayez ultérieurement. ");
     // demander de taper l'email de l'etudiant
-    nouvoEmail = prompt()("taper l'email: ");
-    console.log("trial count = ", count);
+    nouvoEmail = prompt()("Taper votre adresse mail: ");
+    console.log("Nombre de tentatives = ", count);
   } while (data.etudiants.find((user) => user.email === nouvoEmail)); //only false if email not found
   // we need false to break the loop
   return nouvoEmail;
-}
+};
+
+// 2.2) helper function to prompt prof email.
+function verifyExistingProf(data) {
+  let nouvoEmail = null;
+  let count = 0;
+  do {
+    if (count++ >= 3)
+      throw Error("Vous avez essayé à trois reprises, réesayez ultérieurement. ");
+    // demander de taper l'email de l'etudiant
+    nouvoEmail = prompt()("Taper votre adresse mail: ");
+    console.log("Nombre de tentatives = ", count);
+  } while (data.profs.find((user) => user.email === nouvoEmail)); //only false if email not found
+  // we need false to break the loop
+    return nouvoEmail;
+};
 
 // 3) helper function to check if file exists
 //returns true if file exists and false if not
@@ -176,48 +202,3 @@ function findStudentByEmail(data, email) {
   if (existingStudent) return true;
   else return false; //only false if email not found
 }
-
-// 10) fonction d'ajouter un prof
-function addProf(DB){
-  try{
-    verifieEmailProf(DB);
-
-    const nom = prompt()("Entrez votre nom: ");
-    const prenom = prompt()("Entrez votre prénom: ");
-    const matiere = prompt()("Entrez votre matière à enseigner: ");
-  }catch(error){
-    console.log(error.message);
-  };
-
-};
-// 11) Fonction qui vériefie l'existence de l'email entré par le nouveau professeur
-function verifieEmailProf(DB){
-  const mail = prompt()('Entrer votre adresse mail Monsieur: ');
-  const profs = DB.profs;
-  const trouver = profs.find((p) => p.email === mail);
-
-  if(trouver){
-    console.log('Email existé !');
-    promptEmailInsist(DB);
-  }else{
-    console.log("C'est un nouveau email !");
-  };
-  
-};
-
-// 12) Fonction qui exige à l'utilisateur de taper un email différent
-function promptEmailInsist(DB) {
-  let mail = null;
-  let count = 0;
-    do {
-      if (count++ >= 3)
-      throw Error("Vous avez fait plus de 3 tentatives, réessayer ultérieurement");
-  // demander de taper l'email du nouveau professeur
-      mail = prompt()("Retaper votre email: ");
-      console.log("Tentative = ", count);
-} while (DB.profs.find((user) => user.email === mail));
-
-        return mail;
-};
-
-addProf(DB);
