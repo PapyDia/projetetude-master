@@ -2,53 +2,35 @@
     "cours": [],
     "profs": [
         {
+            "id": "8def91dc-78bf-4aa7-bae9-8e03875fd3f1",
             "prenom": "Cheikh",
             "nom": "Dia",
             "email": "prof1@gmail.com"
         },
         {
-            "prenom": "Cheikh",
-            "nom": "Dia",
-            "email": "papy.com"
-        },
-        {
-            "prenom": "papy",
-            "nom": "diop",
-            "email": "moussa.fr"
-        },
-        {
-            "prenom": "",
-            "nom": "",
-            "email": "top.ft"
-        },
-        {
-            "prenom": "quatar",
-            "nom": "cup",
-            "email": "quatar.cup"
-        },
-        {
-            "prenom": "",
-            "nom": "",
-            "email": "amdyShop.eleve"
+            "id": "41e63fdc-0a75-4767-8a09-61601ec3a7ad",
+            "prenom": "Ousseyn",
+            "nom": "Mar",
+            "email": "teacher53@gmail.com"
         }
     ],
     "etudiants": [
         {
-            "id": "96712e8c-4a3c-4a5f-a2cb-a9b4bc3a325b",
-            "nom": "shop",
-            "prenom": "amdy",
-            "email": "amdyShop.fr",
+            "id": "1f9a41e3-6585-43e4-9168-0ac7e95bc3db",
+            "nom": "Diop",
+            "prenom": "Papy",
+            "email": "eleve@yohoo.fr",
             "courses": [
-                "SVT"
+                "Chimie"
             ]
         },
         {
-            "id": "da84bdb3-4e79-470a-a52a-3dba2c90d40b",
-            "nom": "joop",
-            "prenom": "departe",
-            "email": "departe.ci",
+            "id": "a633019b-e7b8-42ee-bf11-372fce30834d",
+            "nom": "Quran",
+            "prenom": "Kaamil",
+            "email": "Ahmadou",
             "courses": [
-                "histoire"
+                "SVT"
             ]
         }
     ]

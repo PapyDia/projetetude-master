@@ -24,6 +24,7 @@ function createProf(){
     const nom = prompt()("Entrez votre nom Monsieur: ");
 
     return {
+      id : uuidv4(),
       prenom : prenom,
       nom : nom,
       email : mail
