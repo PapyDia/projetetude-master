@@ -1,32 +1,54 @@
 {
-    "cours": [
-        {
-            "id": "2c3c06dc-186b-4d18-aba2-ae15bc288eec",
-            "titre": "chimie",
-            "description": "Ce cours est une introduction de la chimie generale",
-            "prof": "",
-            "inscrits": [
-                "moussa.fr"
-            ]
-        }
-    ],
+    "cours": [],
     "profs": [
         {
-            "id": "50da9a8e-9a18-4036-87c0-af39c3456bbb",
-            "nom": "Bakary",
-            "prenom": "Konate",
-            "email": "prof1@gmail.com",
-            "cours": "chimie"
+            "prenom": "Cheikh",
+            "nom": "Dia",
+            "email": "prof1@gmail.com"
+        },
+        {
+            "prenom": "Cheikh",
+            "nom": "Dia",
+            "email": "papy.com"
+        },
+        {
+            "prenom": "papy",
+            "nom": "diop",
+            "email": "moussa.fr"
+        },
+        {
+            "prenom": "",
+            "nom": "",
+            "email": "top.ft"
+        },
+        {
+            "prenom": "quatar",
+            "nom": "cup",
+            "email": "quatar.cup"
+        },
+        {
+            "prenom": "",
+            "nom": "",
+            "email": "amdyShop.eleve"
         }
     ],
     "etudiants": [
         {
-            "id": "9234b899-c819-4218-bf63-8eef8b928159",
-            "nom": "dia",
-            "prenom": "moussa",
-            "email": "moussa.fr",
+            "id": "96712e8c-4a3c-4a5f-a2cb-a9b4bc3a325b",
+            "nom": "shop",
+            "prenom": "amdy",
+            "email": "amdyShop.fr",
             "courses": [
-                "chimie"
+                "SVT"
+            ]
+        },
+        {
+            "id": "da84bdb3-4e79-470a-a52a-3dba2c90d40b",
+            "nom": "joop",
+            "prenom": "departe",
+            "email": "departe.ci",
+            "courses": [
+                "histoire"
             ]
         }
     ]

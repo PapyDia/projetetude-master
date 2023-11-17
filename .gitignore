@@ -25,3 +25,4 @@ yarn-error.log*
 
 fichier.html
 database.json
+package-lock.json
