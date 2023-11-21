@@ -11,8 +11,31 @@ const fileName = "database.json";
 //1) get data from database
 const DB = readData(fileName);
 
+const coursCreated = createCours();
+DB.cours.push(coursCreated);
 
-// 2) create prof instance
+// 2) créer un cours
+function createCours(){
+  try{
+    const cours = verifyExistingCours(DB);
+
+    const titre = cours;
+    const description = prompt()("Ecrire une brève description du cours: ");
+    const inscrits = [];
+
+    return {
+      id: uuidv4(),
+      titre: titre,
+      description: description,
+      inscrits: inscrits
+    };
+
+  }catch(error){
+    console.log(error.message);
+  };
+};
+
+// 3) create prof instance
 const prof = createProf();
 DB.profs.push(prof);
 
@@ -20,14 +43,16 @@ function createProf(){
   try{
     const mail = verifyExistingProf(DB);
     
-    const prenom = prompt()("Entrez votre prénom Monsieur: ");
-    const nom = prompt()("Entrez votre nom Monsieur: ");
+    const prenom = prompt()("Entrez le prénom du professeur: ");
+    const nom = prompt()("Entrez le nom du professeur: ");
+    const cours = [];
 
     return {
       id : uuidv4(),
       prenom : prenom,
       nom : nom,
-      email : mail
+      email : mail,
+      cours: cours
     };
 
   }catch(error){
@@ -38,17 +63,18 @@ function createProf(){
 
 
 // 4) create and add student data
-const student = createStudent(DB);
-DB.etudiants.push(student);
+createStudent(DB);
 
 // 5) save data to database
 storeData(fileName, DB);
 //afficher les donnees au terminal
-console.log("Afficher data: ", JSON.stringify(DB, null, 4));
+// console.log("Afficher data: ", JSON.stringify(DB, null, 4));
+
 
 //////////////////////////////////////////////////////////
 //////Functions used //////////////////////////////////////
 /////////////////////////////////////////////////////////
+
 // 1) function to register student
 function createStudent(data) {
   try {
@@ -64,12 +90,10 @@ function createStudent(data) {
       email: nouvoEmail,
       courses: [],
     };
-    etudiant.courses.push(choixCourse);
 
     //add student information after student creation
     addStudent(data, etudiant, choixCourse);
 
-    return etudiant;
   } catch (err) {
     console.log(err.message);
   }
@@ -86,7 +110,7 @@ function promptEmailStudent(data) {
     // demander de taper l'email de l'etudiant
     nouvoEmail = prompt()("Taper votre adresse mail: ");
     console.log("Nombre de tentatives = ", count);
-  } while (data.etudiants.find((user) => user.email === nouvoEmail)); //only false if email not found
+  } while (data.etudiants.find((user) => user?.email === nouvoEmail)); //only false if email not found
   // we need false to break the loop
   return nouvoEmail;
 };
@@ -99,11 +123,26 @@ function verifyExistingProf(data) {
     if (count++ >= 3)
       throw Error("Vous avez essayé à trois reprises, réesayez ultérieurement. ");
     // demander de taper l'email de l'etudiant
-    nouvoEmail = prompt()("Taper votre adresse mail: ");
+    nouvoEmail = prompt()("Taper l'email du prof: ");
     console.log("Nombre de tentatives = ", count);
-  } while (data.profs.find((user) => user.email === nouvoEmail)); //only false if email not found
+  } while (data.profs.find((user) => user?.email === nouvoEmail)); //only false if email not found
   // we need false to break the loop
     return nouvoEmail;
+};
+
+// 2.3) helper function to prompt prof email.
+function verifyExistingCours(data) {
+  let coursExist = null;
+  let count = 0;
+  do {
+    if (count++ >= 3)
+      throw Error("Vous avez essayé à trois reprises, réesayez ultérieurement. ");
+    // demander de taper l'email de l'etudiant
+    coursExist = prompt()("Entrez le titre du cours: ");
+    console.log("Nombre de tentatives = ", count);
+  } while (data.cours.find((user) => user?.titre === coursExist)); //only false if email not found
+  // we need false to break the loop
+    return coursExist;
 };
 
 // 3) helper function to check if file exists
@@ -175,7 +214,7 @@ function addStudent(data, etudiant, titre) {
     choix.inscrits.push(etudiant.email);
     data.etudiants.push(etudiant);
   } else {
-    console.log("Error adding student");
+    console.log("Ce cours n'existe pas !");
   }
 }
 // ajouter un coursa la list des cours d'un etudiant
@@ -191,8 +230,8 @@ function addCours(data, etudiant, titre) {
     etudiant.courses.push(choix.titre);
     choix.inscrits.push(etudiant.email);
     data.etudiants.push(etudiant);
-  }
-}
+  };
+};
 
 // 9) helper function to check if a student is already in the database
 // la fonction returne true si etudiant existe deja, sinon returne false
@@ -202,4 +241,4 @@ function findStudentByEmail(data, email) {
   const existingStudent = data.etudiants.find((user) => user.email === email);
   if (existingStudent) return true;
   else return false; //only false if email not found
-}
+};
