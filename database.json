@@ -1,46 +1,29 @@
 {
     "cours": [
         {
-            "id": "e687afc0-9351-40ae-8efb-ffc433ae61c2",
+            "id": "3ad539de-0aaf-4be5-890f-337ec4d5c5eb",
             "titre": "chimie",
-            "description": "chimie generale",
-            "prof": "barreau@gmail.com",
+            "description": "chimie partagee",
             "inscrits": [
-                "cheikh.fr"
+                "papy.com"
             ]
-        },
-        {
-            "id": "661f3456-c4b9-4d5c-a9f1-d98af02cb504",
-            "titre": "geographie",
-            "description": "Etude de Geographie humaine",
-            "prof": "barreau@gmail.com",
-            "inscrits": []
-        },
-        null
+        }
     ],
     "profs": [
         {
-            "id": "c20eca09-662a-4433-b5ad-bfae9593b5b1",
-            "prenom": "Bakary",
-            "nom": "Konate",
-            "email": "barreau@gmail.com",
-            "cours": []
-        },
-        {
-            "id": "1a07c9b1-c0fa-448c-9edd-af5e516fc51c",
+            "id": "0d2f542e-44fb-4733-ac46-3fd79063973e",
             "prenom": "Youssouf",
-            "nom": "Diallo",
-            "email": "prof1@gmail.com",
-            "cours": []
-        },
-        null
+            "nom": "Aidara",
+            "email": "prof1.fr",
+            "cours": ""
+        }
     ],
     "etudiants": [
         {
-            "id": "d841ea1f-d77f-41cd-8607-31222999b06b",
+            "id": "31e14b51-c2cf-4358-9a0f-da6c13caa63c",
             "nom": "dia",
-            "prenom": "cheikh",
-            "email": "cheikh.fr",
+            "prenom": "papy",
+            "email": "papy.com",
             "courses": [
                 "chimie"
             ]

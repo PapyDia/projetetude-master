@@ -1,6 +1,7 @@
 import prompt from "prompt-sync";
 import { v4 as uuidv4 } from "uuid";
 import { readFileSync, writeFileSync } from "node:fs";
+
 //variable to store filename
 const fileName = "database.json";
 
@@ -19,13 +20,12 @@ function createCours(){
   try{
     const cours = verifyExistingCours(DB);
 
-    const titre = cours;
     const description = prompt()("Ecrire une brève description du cours: ");
     const inscrits = [];
 
     return {
       id: uuidv4(),
-      titre: titre,
+      titre: cours,
       description: description,
       inscrits: inscrits
     };
@@ -45,7 +45,7 @@ function createProf(){
     
     const prenom = prompt()("Entrez le prénom du professeur: ");
     const nom = prompt()("Entrez le nom du professeur: ");
-    const cours = [];
+    const cours = "";
 
     return {
       id : uuidv4(),
@@ -242,3 +242,4 @@ function findStudentByEmail(data, email) {
   if (existingStudent) return true;
   else return false; //only false if email not found
 };
+
