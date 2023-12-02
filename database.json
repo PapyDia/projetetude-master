@@ -1,31 +1,83 @@
 {
-    "cours": [
+    "courses": [
         {
-            "id": "3ad539de-0aaf-4be5-890f-337ec4d5c5eb",
+            "id": "4f2efd60-a0bb-4645-a32d-84224251e7bc",
             "titre": "chimie",
-            "description": "chimie partagee",
+            "description": "Ce cours est une introduction de la chimie generale",
+            "prof": "prof1@gmail.com",
             "inscrits": [
-                "papy.com"
+                "moussa.diouf.fr"
             ]
+        },
+        {
+            "id": "c071c5a8-9069-4fb6-967f-041633ceffcf",
+            "titre": "Physique",
+            "description": "Physique et un peu de chimie",
+            "prof": "",
+            "inscrits": [
+                "Babacar.com",
+                "moussa.diouf.fr",
+                "zero101.ca"
+            ]
+        },
+        {
+            "id": "5e7e5675-ef4e-4efb-b68a-201d8189eaf1",
+            "titre": "Tronc commun",
+            "description": "un cours qui englobe une certaine generalite",
+            "prof": "jules45.fr",
+            "inscrits": []
         }
     ],
     "profs": [
         {
-            "id": "0d2f542e-44fb-4733-ac46-3fd79063973e",
-            "prenom": "Youssouf",
-            "nom": "Aidara",
-            "email": "prof1.fr",
-            "cours": ""
+            "id": "23b6ac49-df7f-46b1-af19-a3b9bad677b7",
+            "nom": "Bakary",
+            "prenom": "Konate",
+            "email": "prof1@gmail.com",
+            "cours": "chimie"
+        },
+        {
+            "id": "22b1177a-7a8a-4839-9ed6-bec7417c98c6",
+            "prenom": "Ahmadou",
+            "nom": "Fall",
+            "email": "autreprof.ca",
+            "cours": "Physique"
+        },
+        {
+            "id": "9336ecd3-6404-4851-86c2-0ee87c6cdbd0",
+            "prenom": "Jules",
+            "nom": "Rodriguez",
+            "email": "Jules.fr",
+            "cours": "Tout"
         }
     ],
     "etudiants": [
         {
-            "id": "31e14b51-c2cf-4358-9a0f-da6c13caa63c",
-            "nom": "dia",
-            "prenom": "papy",
-            "email": "papy.com",
+            "id": "3c2e1de4-1541-4411-8b67-fc385e6ca126",
+            "nom": "Diouf",
+            "prenom": "Moussa",
+            "email": "moussa.diouf.fr",
             "courses": [
-                "chimie"
+                "chimie",
+                "Physique"
+            ]
+        },
+        {
+            "id": "e44402b3-e8aa-47eb-9927-e03cd7b47736",
+            "nom": "Diop",
+            "prenom": "Babacar",
+            "email": "Babacar.com",
+            "courses": [
+                "Physique"
+            ]
+        },
+        {
+            "id": "3b143279-422a-4f09-ad2f-acfef4c91762",
+            "nom": "Sam",
+            "prenom": "Zero",
+            "email": "zero101.ca",
+            "courses": [
+                "Physique"
             ]
         }
     ]
