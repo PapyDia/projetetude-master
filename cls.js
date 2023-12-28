@@ -54,4 +54,8 @@ const Calculatrice = (operation, ...args) => {
     };
 };
 
-Calculatrice("diviserPar", 10, 2, 5, 5);
+Calculatrice("plus", 10, 2, 5, 5);
+Calculatrice("moins", 10, 2);
+Calculatrice("multiplierPar", 10, 2, 5, 5);
+Calculatrice("diviserPar", 10, 2);
+Calculatrice("diviserPar", 10, 0);
