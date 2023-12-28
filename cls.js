@@ -1,15 +1,28 @@
-const plus = (a, b) => a + b;
+// Déclaration des fonctions primaires plus(+), moins(-), multiplier(*), diviser(/).
+const plus = (...args) => {
+    let total = 0;
+    for(const arg of args){
+        total += arg; 
+    };
+    return total;
+};
 const moins = (a, b) => a - b;
-const multiplierPar = (a, b) => a * b;
+const multiplierPar = (...args) => {
+    let total = 1;
+    for(const arg of args){
+        total = total * arg;
+    };
+    return total;
+};
 const diviserPar = (a, b) => {
         if(b === 0){
             throw Error ("Il est imposible de faire une division par zéro");
         }
         return a / b;
-    
 };
 
-const calcul = (operation) => {
+// La fonction calculer utilise un switch pour choisir l'opération à faire selon les des fonctions primaires.
+const calculer = (operation) => {
     switch(operation){
         case "plus":
             return plus;
@@ -25,14 +38,20 @@ const calcul = (operation) => {
     };
 };
 
-const calculatrice = (a, operation, b) => {
+// Calculatrice est la fonction constructor qui appelle la fonction calculer pour simplifier les calculs.
+const Calculatrice = (operation, ...args) => {
+    let dic = new Map();
+    dic.set("plus", " + ");
+    dic.set("moins", " - ");
+    dic.set("multiplierPar", " * ");
+    dic.set("diviserPar", " / ");
+
     try{
-        console.log(a + " " + operation + " " + b + " = ",
-        calcul(operation)(a, b));
+        console.log("Résultat de " + args.join(dic.get(operation)) + " = ",
+        calculer(operation)(...args));
     }catch(err){
         console.error(err.message);
     };
 };
 
-const resultat = calculatrice(20, "diviserPar", 4);
-console.log(resultat);
+Calculatrice("diviserPar", 10, 2, 5, 5);
