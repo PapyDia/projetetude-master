@@ -1,3 +1,6 @@
+import rawlist from "@inquirer/rawlist";
+import inquirer from "inquirer";
+
 // Déclaration des fonctions primaires plus(+), moins(-), multiplier(*), diviser(/).
 const plus = (...args) => {
     let total = 0;
@@ -10,7 +13,7 @@ const moins = (a, b) => a - b;
 const multiplierPar = (...args) => {
     let total = 1;
     for(const arg of args){
-        total = total * arg;
+        total *= arg;
     };
     return total;
 };
@@ -54,8 +57,35 @@ const Calculatrice = (operation, ...args) => {
     };
 };
 
-Calculatrice("plus", 10, 2, 5, 5);
-Calculatrice("moins", 10, 2);
-Calculatrice("multiplierPar", 10, 2, 5, 5);
-Calculatrice("diviserPar", 10, 2);
-Calculatrice("diviserPar", 10, 0);
+// Utilisation de la bibliothèque Inquirer
+const myRawlist = async () => {
+
+    const operations = await rawlist({
+        message: 'Select your operation',
+        choices: [
+          { name: 'plus', value: 'plus' },
+          { name: 'moins', value: 'moins' },
+          { name: 'multiplierPar', value: 'multiplierPar' },
+          { name: 'diviserPar', value: 'diviserPar' },
+        ],
+      });
+
+      const nombres = inquirer.prompt([
+        {
+            type: "input",
+            name: "calc",
+            message: "Taper les nombres",
+        },
+      ]).then((...answers) => {
+
+        console.log(answers);
+
+      }).catch((err) => {
+        console.log(err.message);
+      });
+
+    // Calculatrice(operations, nombres);
+
+};
+
+await myRawlist();
