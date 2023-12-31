@@ -74,18 +74,26 @@ const myRawlist = async () => {
         {
             type: "input",
             name: "calc",
-            message: "Taper les nombres",
+            message: "Taper les nombres"
         },
-      ]).then((...answers) => {
-
-        console.log(answers);
-
+      ]).then((answers) => {
+        const firstAnswer = answers;
+        const getNumber = () => {
+            const chiffres = inquirer.prompt([
+                {
+                    type: "input",
+                    name: "chif",
+                    message: "Taper les nombres"
+                }
+            ]).then((answers) => {
+                const secondAnswer = answers;
+                // Calculatrice(operations, .....);
+            })
+        }
+        getNumber();
       }).catch((err) => {
         console.log(err.message);
       });
-
-    // Calculatrice(operations, nombres);
-
 };
 
 await myRawlist();
