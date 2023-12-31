@@ -70,27 +70,19 @@ const myRawlist = async () => {
         ],
       });
 
-      const nombres = inquirer.prompt([
+      inquirer.prompt([
         {
             type: "input",
             name: "calc",
             message: "Taper les nombres"
         },
       ]).then((answers) => {
-        const firstAnswer = answers;
-        const getNumber = () => {
-            const chiffres = inquirer.prompt([
-                {
-                    type: "input",
-                    name: "chif",
-                    message: "Taper les nombres"
-                }
-            ]).then((answers) => {
-                const secondAnswer = answers;
-                // Calculatrice(operations, .....);
-            })
-        }
-        getNumber();
+
+        const numbers = answers.calc.trim().split(" ");
+        const theArg = numbers.map(Number);
+
+        Calculatrice(operations, ...theArg);
+      
       }).catch((err) => {
         console.log(err.message);
       });
