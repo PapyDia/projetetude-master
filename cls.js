@@ -85,7 +85,10 @@ const myRawlist = async () => {
         const theArg = numbers.map(Number);
 
         Calculatrice(operations, ...theArg);
-        if(operations) process.exit();
+
+        if(operations === "exit"){
+            process.exit();
+        }else if(operations) process.exit();
 
       }).catch((err) => {
         console.log(err.message);
