@@ -35,6 +35,8 @@ const calculer = (operation) => {
             return multiplierPar;
         case "diviserPar":
             return diviserPar;
+        case "exit":
+            process.exit();
         break;
         default:
             return (a, b) => "Impossible de faire cette opération";
@@ -67,6 +69,7 @@ const myRawlist = async () => {
           { name: 'moins', value: 'moins' },
           { name: 'multiplierPar', value: 'multiplierPar' },
           { name: 'diviserPar', value: 'diviserPar' },
+          { name: 'exit', value: 'exit' },
         ],
       });
 
@@ -82,10 +85,11 @@ const myRawlist = async () => {
         const theArg = numbers.map(Number);
 
         Calculatrice(operations, ...theArg);
-      
+        if(operations) process.exit();
+
       }).catch((err) => {
         console.log(err.message);
       });
 };
 
-await myRawlist();
+myRawlist();
