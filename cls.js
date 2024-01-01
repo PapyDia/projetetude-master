@@ -24,6 +24,10 @@ const diviserPar = (a, b) => {
         return a / b;
 };
 
+const exit = () => {
+    process.exit();
+};
+
 // La fonction calculer utilise un switch pour choisir l'opération à faire selon les des fonctions primaires.
 const calculer = (operation) => {
     switch(operation){
@@ -36,7 +40,7 @@ const calculer = (operation) => {
         case "diviserPar":
             return diviserPar;
         case "exit":
-            process.exit();
+            exit();
         break;
         default:
             return (a, b) => "Impossible de faire cette opération";
@@ -61,8 +65,7 @@ const Calculatrice = (operation, ...args) => {
 
 // Utilisation de la bibliothèque Inquirer
 const myRawlist = async () => {
-
-    const operations = await rawlist({
+   return await rawlist({
         message: 'Select your operation',
         choices: [
           { name: 'plus', value: 'plus' },
@@ -72,27 +75,22 @@ const myRawlist = async () => {
           { name: 'exit', value: 'exit' },
         ],
       });
-
-      inquirer.prompt([
-        {
-            type: "input",
-            name: "calc",
-            message: "Taper les nombres"
-        },
-      ]).then((answers) => {
-
-        const numbers = answers.calc.trim().split(" ");
-        const theArg = numbers.map(Number);
-
-        Calculatrice(operations, ...theArg);
-
-        if(operations === "exit"){
-            process.exit();
-        }else if(operations) process.exit();
-
-      }).catch((err) => {
-        console.log(err.message);
-      });
 };
 
-myRawlist();
+const operation = await myRawlist();
+
+if(operation === "exit") exit();
+
+inquirer.prompt([
+    {
+        type: 'input',
+        name: "calc",
+        message: "Taper les nombres"
+    },
+]).then((answers) => {
+    const numbers = answers.calc.trim().split(" ");
+    const theArg = numbers.map(Number);
+
+    Calculatrice(operation, ...theArg);
+    exit();
+});
