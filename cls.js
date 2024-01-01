@@ -96,6 +96,9 @@ import prompt from "prompt-sync";
 //     exit();
 // });
 
+// _____________--------------------__________________----------------------____________________-----------------------_____________________
+
+//          EXERCICES EXERCICES EXERCICES EXERCICES EXERCICES EXERCICES EXERCICES EXERCICES EXERCICES EXERCICES EXERCICES EXERCICES
 const food = ["Poisson braisé", "Riz au poisson", "Riz au poulet", "Atiéké", "Burger", "Mini pizza"];
 const placeDispo = [1, 3, 10, 8, 9, 11, 20, 17, 6];
 
@@ -147,7 +150,7 @@ const compareNumber = (placeDispo, myArrayNumber) => {
 };
 
 
-const addFood = async () => {
+const addFood = () => {
     const suggestion = prompt()("Voulez-vous ajouter un plat ?");
     if (suggestion === "oui") {
         console.log("il est d'accord");
