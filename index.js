@@ -26,13 +26,21 @@ function createNewProf (email){
     const prenom = prompt()("Entrez le prenom du professeur: ");
     const nom = prompt()("Entrez le nom du professeur: ");
     const cours = prompt()(`Quelle matière enseigne ${nom} ${prenom}: `);
+    const telephone = prompt()("Son numéro de téléphone: ");
+    const adress = prompt()("Son adress");
+    const bureau = prompt()("Le bureau du professeur: ");
+    const statut = prompt()("Quel est son statut de travail, temps plein/partiel: ")
 
       return {
         id: uuidv4(),
         prenom: prenom,
         nom: nom,
         email: email,
-        cours: cours
+        cours: cours,
+        telephone: telephone,
+        adress: adress,
+        bureau: bureau,
+        statut: statut,
       };
   }catch(err){
     console.log(err.message);
@@ -60,6 +68,7 @@ function createNewCours (){
   const titre = promptCoursTitre(dataObjet.courses);
   const description = prompt()("Décrire brièvement ce cours de " + titre + ": ");
   const prof = prompt()(`Quel est l'email du professeur du cours de ${titre} ? `);
+  const local = prompt()(`La salle du cours de ${titre}: `);
   const inscrits = [];
 
   return {
@@ -67,6 +76,7 @@ function createNewCours (){
     titre: titre,
     description: description,
     prof: prof,
+    local: local,
     inscrits: inscrits
   };
 };
@@ -143,12 +153,16 @@ function createStudent(email) {
     console.log("Entrez les infos du nouveau etudiant: ");
     const nouvoPrenom = prompt()("son prénom: ");
     const nouvoNom = prompt()("son nom: ");
+    const telephone = prompt()("son numéro de téléphone: ");
+    const adresse = prompt()("son adress: ");
     //create student data object
     const etudiant = {
       id: uuidv4(),
       nom: nouvoNom,
       prenom: nouvoPrenom,
       email: email,
+      telephone: telephone,
+      adresse: adresse,
       courses: [],
     };
     return etudiant;
