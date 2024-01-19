@@ -27,7 +27,7 @@ function createNewProf (email){
     const nom = prompt()("Entrez le nom du professeur: ");
     const cours = prompt()(`Quelle matière enseigne ${nom} ${prenom}: `);
     const telephone = prompt()("Son numéro de téléphone: ");
-    const adress = prompt()("Son adress");
+    const adress = prompt()("Son adress: ");
     const bureau = prompt()("Le bureau du professeur: ");
     const statut = prompt()("Quel est son statut de travail, temps plein/partiel: ")
 
