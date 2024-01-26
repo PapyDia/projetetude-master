@@ -154,7 +154,8 @@ function createStudent(email) {
     const nouvoPrenom = prompt()("son prénom: ");
     const nouvoNom = prompt()("son nom: ");
     const telephone = prompt()("son numéro de téléphone: ");
-    const adresse = prompt()("son adress: ");
+    const adresse = prompt()("son adresse: ");
+    const note = [];
     //create student data object
     const etudiant = {
       id: uuidv4(),
@@ -163,6 +164,7 @@ function createStudent(email) {
       email: email,
       telephone: telephone,
       adresse: adresse,
+      note: note,
       courses: [],
     };
     return etudiant;
