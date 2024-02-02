@@ -47,13 +47,6 @@ function createNewProf (email){
   };
 };
 
-let nouvoProf = {
-  id: uuidv4(),
-  nom: "Bakary",
-  prenom: "Konate",
-  email: "prof1@gmail.com",
-  cours: "chimie",
-};
 // 3) create course data object
 console.log("=========Enregistrer un cours avec les ref d'un prof==========");
 
@@ -155,7 +148,7 @@ function createStudent(email) {
     const nouvoNom = prompt()("son nom: ");
     const telephone = prompt()("son numéro de téléphone: ");
     const adresse = prompt()("son adresse: ");
-    const note = [];
+    const notes = [];
     //create student data object
     const etudiant = {
       id: uuidv4(),
@@ -164,7 +157,7 @@ function createStudent(email) {
       email: email,
       telephone: telephone,
       adresse: adresse,
-      note: note,
+      note: notes,
       courses: [],
     };
     return etudiant;
